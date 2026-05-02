@@ -1,0 +1,32 @@
+---
+import Base from '../layouts/Base.astro';
+import { site } from '../site.config';
+---
+<Base title="About" current="about">
+  <article class="article">
+    <h1>About</h1>
+    <p class="meta">{site.role} · {site.location}</p>
+
+    <p>I'm a platform engineering leader running a <strong>reverse Conway maneuver</strong>: deliberately structuring teams to produce the architecture I want, rather than letting the org chart dictate the system. My technical strategy and people leadership are intertwined on purpose.</p>
+
+    <p>Day to day I lead the enterprise platform team at {site.company}. We're scaling Kubernetes across the org, building the internal developer platform that sits on top of it, and reshaping team boundaries to match.</p>
+
+    <h2>What I'm working on</h2>
+    <ul>
+      <li><strong>Enterprise Kubernetes</strong> — platform at scale, in a regulated industry.</li>
+      <li><strong>Beyond DevOps</strong> — a book about what comes after the DevOps title.</li>
+      <li><strong>Maestro / homelab</strong> — personal infra and AI productivity tooling.</li>
+      <li><strong>SHPA</strong> — Parent Board Member at Seven Hills Preparatory Academy.</li>
+    </ul>
+
+    <h2>Certifications</h2>
+    <ul>
+      {site.certifications.map((c) => (
+        <li><strong>{c.name}</strong>{c.org && ` — ${c.org}`}{c.year && ` (${c.year})`}</li>
+      ))}
+    </ul>
+
+    <h2>Reach me</h2>
+    <p>Email <a href={site.socials.email}>{site.email}</a> · <a href={site.socials.linkedin}>LinkedIn</a> · <a href={site.socials.github}>GitHub</a></p>
+  </article>
+</Base>

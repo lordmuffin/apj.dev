@@ -1,0 +1,76 @@
+---
+import Base from '../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+import { site } from '../site.config';
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 3);
+
+const fmt = (d: Date) =>
+  d.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+---
+<Base current="home">
+  <section class="hero">
+    <div>
+      <span class="badge"><span class="dot"></span> {site.ctaBadge}</span>
+      <h1>Platform engineering, <span class="grad">team topology</span>, and the work between them.</h1>
+      <p class="lede">{site.intro}</p>
+      <div class="btns">
+        <a class="primary" href="#work">View résumé</a>
+        <a class="ghost" href="/blog">Read the blog →</a>
+      </div>
+    </div>
+    <aside class="stat-card">
+      {site.stats.map((s) => (
+        <div class="stat">
+          <div class="k">{s.k}</div>
+          <div class="v">{s.v}{s.sub && <small>{s.sub}</small>}</div>
+        </div>
+      ))}
+    </aside>
+  </section>
+
+  <section id="work">
+    <h2 class="eyebrow">Experience</h2>
+    <div class="grid">
+      {site.experience.map((e) => (
+        <article class="card">
+          <div class="role">
+            <h3>{e.role}</h3>
+            <span class="when">{e.when}</span>
+          </div>
+          <p>{e.org} · {e.summary}</p>
+        </article>
+      ))}
+    </div>
+    <div class="chips">
+      {site.skills.map((s) => <span class="chip">{s}</span>)}
+    </div>
+  </section>
+
+  <section id="writing">
+    <h2 class="eyebrow">Latest writing</h2>
+    {posts.length === 0 ? (
+      <p style="color:var(--dim)">No posts yet — drop your first markdown file in <code>src/content/blog/</code>.</p>
+    ) : (
+      <div class="posts">
+        {posts.map((p) => (
+          <a class="post" href={`/blog/${p.slug}/`}>
+            <div>
+              <h3>{p.data.title}</h3>
+              <div class="meta">{fmt(p.data.pubDate)}{p.data.tags.length > 0 && ` · ${p.data.tags.join(', ')}`}</div>
+            </div>
+            <div class="arrow">→</div>
+          </a>
+        ))}
+      </div>
+    )}
+    <p style="margin-top:16px"><a href="/blog" style="color:var(--dim)">All posts →</a></p>
+  </section>
+
+  <section id="contact">
+    <h2 class="eyebrow">Contact</h2>
+    <p>Best reached by email at <a href={site.socials.email} style="color:var(--accent)">{site.email}</a> or on <a href={site.socials.linkedin} style="color:var(--accent)">LinkedIn</a>.</p>
+  </section>
+</Base>
