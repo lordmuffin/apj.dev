@@ -1,0 +1,27 @@
+# Homelab deploy. Assumes you already have Traefik on a `proxy` network handling TLS.
+# If you use Caddy / nginx-proxy / something else, swap the labels block.
+
+services:
+  site:
+    build: .
+    image: andrewjackson-site:latest
+    container_name: andrewjackson-site
+    restart: unless-stopped
+    networks: [proxy]
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=proxy"
+      - "traefik.http.routers.ajsite.rule=Host(`andrewjackson.dev`) || Host(`www.andrewjackson.dev`)"
+      - "traefik.http.routers.ajsite.entrypoints=websecure"
+      - "traefik.http.routers.ajsite.tls=true"
+      - "traefik.http.routers.ajsite.tls.certresolver=letsencrypt"
+      - "traefik.http.services.ajsite.loadbalancer.server.port=80"
+      # redirect www → apex
+      - "traefik.http.middlewares.ajsite-www.redirectregex.regex=^https?://www\\.andrewjackson\\.dev/(.*)"
+      - "traefik.http.middlewares.ajsite-www.redirectregex.replacement=https://andrewjackson.dev/$${1}"
+      - "traefik.http.middlewares.ajsite-www.redirectregex.permanent=true"
+      - "traefik.http.routers.ajsite.middlewares=ajsite-www"
+
+networks:
+  proxy:
+    external: true

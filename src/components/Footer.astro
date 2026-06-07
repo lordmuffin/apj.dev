@@ -1,0 +1,13 @@
+---
+import { site } from '../site.config';
+const year = new Date().getFullYear();
+---
+<footer class="site-footer">
+  <div>© {year} {site.name}</div>
+  <div>
+    <a href={site.socials.linkedin}>LinkedIn</a> ·
+    <a href={site.socials.github}>GitHub</a> ·
+    <a href={site.socials.email}>Email</a> ·
+    <a href="/rss.xml">RSS</a>
+  </div>
+</footer>
