@@ -1,0 +1,127 @@
+---
+import { site } from '../site.config';
+import '../styles/global.css';
+---
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Connect with Andrew Jackson</title>
+  <meta name="description" content="Platform engineering leader. Follow along on LinkedIn, YouTube, and email." />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <style>
+    body {
+      background: var(--bg);
+      color: var(--fg);
+      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 15px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      margin: 0 auto;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      max-width: 480px;
+    }
+
+    h1 {
+      font-size: 32px;
+      line-height: 1.05;
+      letter-spacing: -.03em;
+      font-weight: 800;
+      margin: 0 0 16px;
+    }
+
+    p {
+      color: var(--dim);
+      font-size: 17px;
+      max-width: 520px;
+      margin: 0 0 24px;
+    }
+
+    .btns {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      width: 100%;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 16px 24px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      text-align: center;
+      min-height: 56px;
+      transition: transform .15s, box-shadow .15s;
+    }
+
+    .btn.primary {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .btn.primary:hover {
+      color: #fff;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn.secondary {
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      background: transparent;
+    }
+
+    .btn.secondary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn.ghost {
+      border: 1px solid var(--rule);
+      color: var(--dim);
+      background: transparent;
+    }
+
+    .btn.ghost:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    footer {
+      margin-top: 48px;
+      font-size: 13px;
+      color: var(--dim);
+      text-align: center;
+    }
+
+    footer a {
+      color: var(--dim);
+      text-decoration: underline;
+    }
+
+    footer a:hover {
+      color: var(--fg);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Andrew Jackson</h1>
+    <p>Platform engineering · AI orchestration · Beyond DevOps</p>
+  </header>
+  <div class="btns">
+    <a href={site.socials.linkedin} class="btn primary">Follow on LinkedIn →</a>
+    <a href="#youtube" class="btn secondary">Subscribe on YouTube →</a>
+    <a href="https://beyond-devops.beehiiv.com/subscribe" class="btn ghost">Join the email list →</a>
+  </div>
+  <footer>
+    <small>Platform builder. Writing about what comes after the DevOps title. <a href="/">andrewjackson.dev</a></small>
+  </footer>
+</body>
+</html>
